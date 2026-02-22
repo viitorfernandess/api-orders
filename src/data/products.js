@@ -1,13 +1,13 @@
 const uuid = require('uuid').v4
 
 const products = [
-    { id: '1', productName: 'Teclado', price: '120', stock: '12'}
+    { id: '1', productName: 'Teclado', price: '120', stock: '12' }
 ]
 
 module.exports = {
+    getAllProducts: () => products,
 
-    
-    createProduct: ( productName, price, stock ) => {
+    createProduct: (productName, price, stock) => {
         const newProduct = {
             id: uuid(),
             productName,
@@ -17,5 +17,5 @@ module.exports = {
         products.push(newProduct)
         return newProduct
     }
- }
+}
 
