@@ -7,6 +7,8 @@ const products = [
 module.exports = {
     getAllProducts: () => products,
 
+    getProductById: (id) => products.find(product => product.id == id),
+
     createProduct: (productName, price, stock) => {
         const newProduct = {
             id: uuid(),
