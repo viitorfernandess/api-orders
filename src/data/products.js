@@ -18,6 +18,25 @@ module.exports = {
         }
         products.push(newProduct)
         return newProduct
-    }
+    },
+
+    updateProduct: (id, updatedProduct) => {
+        const productIndex = products.findIndex(product => product.id == id)
+
+        if (productIndex === -1) {
+            return null
+        }
+
+        delete updatedProduct.id
+
+        products[productIndex] = {
+            ...products[productIndex],
+            ...updatedProduct
+        }
+
+        return products[productIndex]
+
+    },
+
 }
 
