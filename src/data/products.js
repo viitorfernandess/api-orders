@@ -1,3 +1,21 @@
-const products = []
+const uuid = require('uuid').v4
 
-module.exports = products
+const products = [
+    { id: '1', productName: 'Teclado', price: '120', stock: '12'}
+]
+
+module.exports = {
+
+    
+    createProduct: ( productName, price, stock ) => {
+        const newProduct = {
+            id: uuid(),
+            productName,
+            price,
+            stock
+        }
+        products.push(newProduct)
+        return newProduct
+    }
+ }
+
