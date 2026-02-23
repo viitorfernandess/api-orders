@@ -14,7 +14,7 @@ module.exports = {
         if (!productName || typeof price != "number" || price <= 0) {
             return null
         }
-        
+
         const newProduct = {
             id: uuid(),
             productName,
@@ -33,6 +33,13 @@ module.exports = {
         }
 
         delete updatedProduct.id
+
+        if (
+            (updatedProduct.price !== undefined && updatedProduct.price <= 0) ||
+            (updatedProduct.stock !== undefined && updatedProduct.stock < 0)
+        ) {
+            return null
+        }
 
         products[productIndex] = {
             ...products[productIndex],
