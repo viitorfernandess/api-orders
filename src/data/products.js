@@ -1,7 +1,7 @@
 const uuid = require('uuid').v4
 
 const products = [
-    { id: '1', productName: 'Teclado', price: '120', stock: '12' }
+    { id: '1', productName: 'Teclado', price: 120, stock: 12 }
 ]
 
 module.exports = {
@@ -37,7 +37,7 @@ module.exports = {
         return products[productIndex]
     },
 
-    deleteProduct: (id, deletedProduct) => {
+    deleteProduct: (id) => {
         const productIndex = products.findIndex(product => product.id == id)
 
         if (productIndex === -1) {
