@@ -35,8 +35,18 @@ module.exports = {
         }
 
         return products[productIndex]
-
     },
 
+    deleteProduct: (id, deletedProduct) => {
+        const productIndex = products.findIndex(product => product.id == id)
+
+        if (productIndex === -1) {
+            return null
+        }
+
+        deletedProduct = products.splice(productIndex, 1)
+
+        return deletedProduct[0]
+    }
 }
 
