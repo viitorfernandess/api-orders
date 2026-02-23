@@ -7,9 +7,14 @@ const products = [
 module.exports = {
     getAllProducts: () => products,
 
-    getProductById: (id) => products.find(product => product.id == id),
+    getProductById: (id) => products.find(product => product.id === id),
 
     createProduct: (productName, price, stock) => {
+
+        if (!productName || typeof price != "number" || price <= 0) {
+            return null
+        }
+        
         const newProduct = {
             id: uuid(),
             productName,
@@ -21,7 +26,7 @@ module.exports = {
     },
 
     updateProduct: (id, updatedProduct) => {
-        const productIndex = products.findIndex(product => product.id == id)
+        const productIndex = products.findIndex(product => product.id === id)
 
         if (productIndex === -1) {
             return null
@@ -38,7 +43,7 @@ module.exports = {
     },
 
     deleteProduct: (id) => {
-        const productIndex = products.findIndex(product => product.id == id)
+        const productIndex = products.findIndex(product => product.id === id)
 
         if (productIndex === -1) {
             return null
