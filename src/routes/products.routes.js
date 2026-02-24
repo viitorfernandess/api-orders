@@ -5,6 +5,7 @@ const router = express.Router()
 
 router.get("/", productsController.index)
 router.get("/:id", productsController.show)
+router.post("/", productsController.save)
 
 
 module.exports = router
