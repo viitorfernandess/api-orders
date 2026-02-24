@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 router.get("/", productsController.index)
-
+router.get("/:id", productsController.show)
 
 
 module.exports = router
