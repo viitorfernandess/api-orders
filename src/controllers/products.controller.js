@@ -25,5 +25,18 @@ module.exports = {
         }
         const newProduct = productsData.createProduct(productName, price, stock)
         res.status(201).json(newProduct)
+    },
+
+    update: (req, res) => {
+        const { id } = req.params
+        const { productName, price, stock } = req.body
+        const fieldsToUpdate = {}
+
+        if (productName !== undefined) fieldsToUpdate.productName = productName
+        if (price !== undefined) fieldsToUpdate.price = price
+        if (stock !== undefined) fieldsToUpdate.stock = stock
+
+        const updatedProduct = productsData.updateProduct(id, fieldsToUpdate)
+        return res.status(200).json(updatedProduct)
     }
 }
