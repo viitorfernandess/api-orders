@@ -4,6 +4,8 @@ const orders = [
 
 module.exports = {
     getAllOrders: () => orders,
+
+    getOrderById: (id) => orders.find(order => order.id === id),
     
 }
 
