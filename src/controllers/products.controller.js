@@ -1,4 +1,4 @@
-const productsData = require("../data/products")
+const productsData = require("../model/products")
 
 module.exports = {
     //GET /api/products

@@ -1,7 +1,7 @@
 const uuid = require('uuid').v4
 
 const products = [
-    { id: '1', productName: 'Teclado', price: 120, stock: 12 }
+    { id: uuid(), productName: 'Teclado', price: 120, stock: 12 }
 ]
 
 module.exports = {
