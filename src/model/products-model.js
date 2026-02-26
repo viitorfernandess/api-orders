@@ -27,37 +27,29 @@ module.exports = {
 
     updateProduct: (id, updatedProduct) => {
         const productIndex = products.findIndex(product => product.id === id)
-
         if (productIndex === -1) {
             return null
         }
-
         delete updatedProduct.id
-
         if (
             (updatedProduct.price !== undefined && updatedProduct.price <= 0) ||
             (updatedProduct.stock !== undefined && updatedProduct.stock < 0)
         ) {
             return null
         }
-
         products[productIndex] = {
             ...products[productIndex],
             ...updatedProduct
         }
-
         return products[productIndex]
     },
 
     deleteProduct: (id) => {
         const productIndex = products.findIndex(product => product.id === id)
-
         if (productIndex === -1) {
             return null
         }
-
-        deletedProduct = products.splice(productIndex, 1)
-
+        const deletedProduct = products.splice(productIndex, 1)
         return deletedProduct[0]
     }
 }

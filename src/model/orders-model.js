@@ -50,8 +50,18 @@ module.exports = {
         }
 
         return orders[orderIndex]
+    },
+
+    deleteOrder: (id) => {
+        const orderIndex = orders.find(order => order.id === id)
+        if (orderIndex === -1) {
+            return null
+        }
+        const deletedOrder = orders.splice(orderIndex, 1)
+        return deletedOrder[0]
     }
 }
+
 
 
 
