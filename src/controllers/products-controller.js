@@ -1,9 +1,10 @@
+const productsModel = require("../model/products-model")
 const productsData = require("../model/products-model")
 
 module.exports = {
     //GET /api/products
     index: (req, res) => {
-        const products = productsData.getAllProducts()
+        const products = productsModel.getAllProducts()
         res.json(products)
     },
 
@@ -23,7 +24,7 @@ module.exports = {
             typeof stock !== 'number') {
             return res.status(400).json({ message: 'Campos inválidos.' })
         }
-        const newProduct = productsData.createProduct(productName, price, stock)
+        const newProduct = productsModel.createProduct(productName, price, stock)
         res.status(201).json(newProduct)
     },
 
@@ -36,7 +37,7 @@ module.exports = {
         if (price !== undefined) fieldsToUpdate.price = price
         if (stock !== undefined) fieldsToUpdate.stock = stock
 
-        const updatedProduct = productsData.updateProduct(id, fieldsToUpdate)
+        const updatedProduct = productsModel.updateProduct(id, fieldsToUpdate)
         return res.status(200).json(updatedProduct)
     }
 }

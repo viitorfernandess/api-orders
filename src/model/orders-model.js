@@ -47,7 +47,7 @@ module.exports = {
     },
 
     deleteOrder: (id) => {
-        const orderIndex = orders.find(order => order.id === id)
+        const orderIndex = orders.findIndex(order => order.id === id)
         if (orderIndex === -1) {
             return null
         }
