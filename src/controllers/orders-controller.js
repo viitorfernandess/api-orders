@@ -7,5 +7,11 @@ module.exports = {
         res.json(orders)
     },
 
-    
+    //GET /api/orders/:id
+    show: (req, res) => {
+        const { id } = req.params
+        const order = ordersModel.getOrderById(id)
+        if (!order) return res.status(404).json({ message: 'Pedido não encontrado' })
+        res.json(order)
+    },
 }
