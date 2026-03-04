@@ -39,5 +39,17 @@ module.exports = {
 
         const updatedProduct = productsModel.updateProduct(id, fieldsToUpdate)
         return res.status(200).json(updatedProduct)
+    },
+
+    delete: (req, res) => {
+        const { id } = req.params
+
+        const deletedProduct = productsModel.deleteProduct(id)
+
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'produto não encontrado' })
+        }
+
+        return res.status(200).json(deletedProduct)
     }
 }
