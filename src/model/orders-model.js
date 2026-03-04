@@ -10,7 +10,7 @@ module.exports = {
     getOrderById: (id) => orders.find(order => order.id === id),
 
     createOrder: (productId, quantity, total) => {
-        if (typeof productId !== 'number' || typeof quantity !== 'number' || total < 0) {
+        if (typeof productId !== 'string' || typeof quantity !== 'number' || total < 0) {
             return null
         }
         const newOrder = {

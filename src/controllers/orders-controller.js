@@ -20,7 +20,7 @@ module.exports = {
         const { productId, quantity, total } = req.body
 
         if (
-            typeof productId != 'number' ||
+            typeof productId != 'string' ||
             typeof quantity != 'number' ||
             typeof total != 'number'
         ) {
