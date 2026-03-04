@@ -1,4 +1,5 @@
 const uuid = require('uuid').v4
+const productsModel = require('./products-model')
 
 const orders = [
     { id: uuid(), productId: 1, quantity: 6, total: 720, status: 'criado' }
@@ -9,10 +10,20 @@ module.exports = {
 
     getOrderById: (id) => orders.find(order => order.id === id),
 
-    createOrder: (productId, quantity, total) => {
-        if (typeof productId !== 'string' || typeof quantity !== 'number' || total < 0) {
+    createOrder: (productId, quantity) => {
+        if (typeof productId !== 'string' || typeof quantity !== 'number') {
             return null
         }
+
+        const product = productsModel.getProductById(productId)
+        if (!product) {
+            return null
+        }
+
+        product.stock -= quantity
+
+        const total = product.price * quantity
+
         const newOrder = {
             id: uuid(),
             productId,

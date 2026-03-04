@@ -17,22 +17,23 @@ module.exports = {
 
     //POST /api/orders
     save: (req, res) => {
-        const { productId, quantity, total } = req.body
+        const { productId, quantity } = req.body
 
         if (
             typeof productId != 'string' ||
-            typeof quantity != 'number' ||
-            typeof total != 'number'
+            typeof quantity != 'number' 
         ) {
             return res.status(400).json({ message: 'Campos inválidos' })
         }
 
-        const newOrder = ordersModel.createOrder(productId, quantity, total)
+        const newOrder = ordersModel.createOrder(productId, quantity)
 
         if (!newOrder) {
             return res.status(400).json({ message: 'Erro ao criar novo pedido' })
         }
 
         res.status(201).json(newOrder)
-    }
+    },
+
+    //PUT /api/orders/:id
 }
