@@ -1,5 +1,6 @@
 const ordersModel = require('../model/orders-model')
 
+
 module.exports = {
     //GET /api/orders
     index: (req, res) => {
@@ -21,7 +22,7 @@ module.exports = {
 
         if (
             typeof productId != 'string' ||
-            typeof quantity != 'number' 
+            typeof quantity != 'number'
         ) {
             return res.status(400).json({ message: 'Campos inválidos' })
         }
@@ -36,4 +37,18 @@ module.exports = {
     },
 
     //PUT /api/orders/:id
+    update: (req, res) => {
+        const { id } = req.params
+        const { quantity } = req.body
+        const fieldsToUpdate = {}
+
+        if (quantity !== undefined) fieldsToUpdate.quantity = quantity
+
+        const updatedOrder = ordersModel.updateOrder(id, fieldsToUpdate)
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Pedido não encontrado' })
+        }
+        return res.status(200).json(updatedOrder)
+    }
 }

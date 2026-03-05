@@ -44,12 +44,12 @@ module.exports = {
             if (typeof updatedOrder.quantity !== 'number' || updatedOrder.quantity <= 0) {
                 return null
             }
+            // recalcula o total automaticamente
+            const product = productsModel.getProductById(orders[orderIndex].productId)
+            if (!product) return null
+            updatedOrder.total = product.price * updatedOrder.quantity
         }
-        if (updatedOrder.total !== undefined) {
-            if (typeof updatedOrder.total !== 'number' || updatedOrder.total <= 0) {
-                return null
-            }
-        }
+
         orders[orderIndex] = {
             ...orders[orderIndex],
             ...updatedOrder
