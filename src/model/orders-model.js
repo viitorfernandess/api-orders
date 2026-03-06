@@ -2,7 +2,7 @@ const uuid = require('uuid').v4
 const productsModel = require('./products-model')
 
 const orders = [
-    { id: uuid(), productId: 1, quantity: 6, total: 720, status: 'criado' }
+
 ]
 
 module.exports = {
@@ -37,6 +37,7 @@ module.exports = {
 
     updateOrder: (id, updatedOrder) => {
         const orderIndex = orders.findIndex(order => order.id === id)
+
         if (orderIndex === -1) {
             return null
         }
