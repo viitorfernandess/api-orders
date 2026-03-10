@@ -11,13 +11,17 @@ module.exports = {
     getOrderById: (id) => orders.find(order => order.id === id),
 
     createOrder: (productId, quantity) => {
-        if (typeof productId !== 'string' || typeof quantity !== 'number') {
-            return null
+        if (typeof productId !== 'string' || typeof quantity !== 'number' || quantity <= 0) {
+            throw new Error("Campos inválidos.")
         }
 
         const product = productsModel.getProductById(productId)
         if (!product) {
-            return null
+            throw new Error("Produto não encontrado.")
+        }
+
+        if (product.stock < quantity) {
+            throw new Error("Estoque insuficiente.")
         }
 
         product.stock -= quantity
