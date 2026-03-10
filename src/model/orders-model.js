@@ -43,15 +43,28 @@ module.exports = {
         const orderIndex = orders.findIndex(order => order.id === id)
 
         if (orderIndex === -1) {
-            return null
+            throw new Error("Pedido não encontrado.")
         }
+
+        const order = orders[orderIndex]
+
         if (updatedOrder.quantity !== undefined) {
             if (typeof updatedOrder.quantity !== 'number' || updatedOrder.quantity <= 0) {
-                return null
+                throw new Error("Campos inválidos.")
             }
             // recalcula o total automaticamente
             const product = productsModel.getProductById(orders[orderIndex].productId)
-            if (!product) return null
+            if (!product)
+                throw new Error("Produto não encontrado.")
+
+            const difference = updatedOrder.quantity - order.quantity
+
+            if (product.stock < difference) {
+                throw new Error("Estoque insuficiente.")
+            }
+
+            product.stock -= difference
+
             updatedOrder.total = product.price * updatedOrder.quantity
         }
 
