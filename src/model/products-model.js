@@ -10,9 +10,16 @@ module.exports = {
     getProductById: (id) => products.find(product => product.id === id),
 
     createProduct: (productName, price, stock) => {
+        if (!productName || typeof productName !== "string") {
+            throw new Error("Nome do produto inválido.")
+        }
 
-        if (!productName || typeof price != "number" || price <= 0) {
-            return null
+        if (typeof price !== "number" || price <= 0) {
+            throw new Error("Preço inválido.")
+        }
+
+        if (typeof stock !== "number" || stock < 0) {
+            throw new Error("Estoque inválido.")
         }
 
         const newProduct = {
