@@ -33,16 +33,23 @@ module.exports = {
     },
 
     updateProduct: (id, updatedProduct) => {
+        if (!id) throw new Error("ID é obrigatório.")
+
         const productIndex = products.findIndex(product => product.id === id)
         if (productIndex === -1) {
-            return null
+            throw new Error("produto não encontrado.")
         }
+
         delete updatedProduct.id
-        if (
-            (updatedProduct.price !== undefined && updatedProduct.price <= 0) ||
-            (updatedProduct.stock !== undefined && updatedProduct.stock < 0)
-        ) {
-            return null
+
+        if (updatedProduct.productName !== undefined && typeof updatedProduct.productName !== "string") {
+            throw new Error("Nome do produto inválido.")
+        }
+        if (updatedProduct.price !== undefined && (typeof updatedProduct.price !== "number" || updatedProduct.price <= 0)) {
+            throw new Error("Preço inválido.")
+        }
+        if (updatedProduct.stock !== undefined && (typeof updatedProduct.stock !== "number" || updatedProduct.stock < 0)) {
+            throw new Error("Estoque insuficiente.")
         }
         products[productIndex] = {
             ...products[productIndex],
