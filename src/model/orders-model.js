@@ -76,9 +76,11 @@ module.exports = {
     },
 
     deleteOrder: (id) => {
+        if (!id) throw new Error("ID é obrigatório.")
+            
         const orderIndex = orders.findIndex(order => order.id === id)
         if (orderIndex === -1) {
-            return null
+            throw new Error("Pedido não encontrado.")
         }
         const deletedOrder = orders.splice(orderIndex, 1)
         return deletedOrder[0]
