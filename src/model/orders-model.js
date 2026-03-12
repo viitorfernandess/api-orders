@@ -22,7 +22,7 @@ module.exports = {
         }
 
         if (product.stock < quantity) {
-            throw new Error("Estoque insuficiente.", 404)
+            throw new AppError("Estoque insuficiente.", 400)
         }
 
         product.stock -= quantity
