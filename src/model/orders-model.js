@@ -1,5 +1,6 @@
 const uuid = require('uuid').v4
 const productsModel = require('./products-model')
+const AppError = require('../errors/app-error')
 
 const orders = [
 
@@ -12,7 +13,7 @@ module.exports = {
 
     createOrder: (productId, quantity) => {
         if (typeof productId !== 'string' || typeof quantity !== 'number' || quantity <= 0) {
-            throw new Error("Campos inválidos.")
+            throw new AppError("Campos inválidos.", 400)
         }
 
         const product = productsModel.getProductById(productId)
