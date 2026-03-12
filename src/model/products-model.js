@@ -60,11 +60,11 @@ module.exports = {
     },
 
     deleteProduct: (id) => {
-        if (!id) throw new Error("Id é obrigatório.")
+        if (!id) throw new AppError("Id é obrigatório.", 400)
 
         const productIndex = products.findIndex(product => product.id === id)
         if (productIndex === -1) {
-            throw new Error("Produto não encontrado.")
+            throw new AppError("Produto não encontrado.", 404)
         }
         const deletedProduct = products.splice(productIndex, 1)
         return deletedProduct[0]
