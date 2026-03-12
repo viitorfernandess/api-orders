@@ -77,11 +77,11 @@ module.exports = {
     },
 
     deleteOrder: (id) => {
-        if (!id) throw new Error("ID é obrigatório.")
+        if (!id) throw new AppError("ID é obrigatório.", 400)
             
         const orderIndex = orders.findIndex(order => order.id === id)
         if (orderIndex === -1) {
-            throw new Error("Pedido não encontrado.")
+            throw new AppError("Pedido não encontrado.", 404)
         }
         const deletedOrder = orders.splice(orderIndex, 1)
         return deletedOrder[0]
