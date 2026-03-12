@@ -34,23 +34,23 @@ module.exports = {
     },
 
     updateProduct: (id, updatedProduct) => {
-        if (!id) throw new Error("ID é obrigatório.")
+        if (!id) throw new AppError("ID é obrigatório.", 400)
 
         const productIndex = products.findIndex(product => product.id === id)
         if (productIndex === -1) {
-            throw new Error("produto não encontrado.")
+            throw new AppError("produto não encontrado.", 404)
         }
 
         delete updatedProduct.id
 
         if (updatedProduct.productName !== undefined && typeof updatedProduct.productName !== "string") {
-            throw new Error("Nome do produto inválido.")
+            throw new AppError("Nome do produto inválido.", 400)
         }
         if (updatedProduct.price !== undefined && (typeof updatedProduct.price !== "number" || updatedProduct.price <= 0)) {
-            throw new Error("Preço inválido.")
+            throw new AppError("Preço inválido.", 400)
         }
         if (updatedProduct.stock !== undefined && (typeof updatedProduct.stock !== "number" || updatedProduct.stock < 0)) {
-            throw new Error("Estoque insuficiente.")
+            throw new AppError("Estoque insuficiente.", 404)
         }
         products[productIndex] = {
             ...products[productIndex],
