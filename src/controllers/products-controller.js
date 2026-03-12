@@ -12,7 +12,7 @@ module.exports = {
     show: (req, res) => {
         const { id } = req.params
         const product = productsData.getProductById(id)
-        if (!product) return res.status(404).json({ message: 'Produto não encontrado!' })
+        if (!product) return res.status(404).json({ message: 'Produto não encontrado.' })
         res.json(product)
     },
 
@@ -47,7 +47,7 @@ module.exports = {
         const deletedProduct = productsModel.deleteProduct(id)
 
         if (!deletedProduct) {
-            return res.status(404).json({ message: 'produto não encontrado' })
+            return res.status(404).json({ message: 'produto não encontrado.' })
         }
 
         return res.status(200).json(deletedProduct)
