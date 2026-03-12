@@ -44,24 +44,24 @@ module.exports = {
         const orderIndex = orders.findIndex(order => order.id === id)
 
         if (orderIndex === -1) {
-            throw new Error("Pedido não encontrado.")
+            throw new AppError("Pedido não encontrado.", 404)
         }
 
         const order = orders[orderIndex]
 
         if (updatedOrder.quantity !== undefined) {
             if (typeof updatedOrder.quantity !== 'number' || updatedOrder.quantity <= 0) {
-                throw new Error("Campos inválidos.")
+                throw new AppError("Campos inválidos.", 400)
             }
             // recalcula o total automaticamente
             const product = productsModel.getProductById(orders[orderIndex].productId)
             if (!product)
-                throw new Error("Produto não encontrado.")
+                throw new AppError("Produto não encontrado.", 404)
 
             const difference = updatedOrder.quantity - order.quantity
 
             if (product.stock < difference) {
-                throw new Error("Estoque insuficiente.")
+                throw new AppError("Estoque insuficiente.", 404)
             }
 
             product.stock -= difference
