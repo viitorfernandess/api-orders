@@ -18,11 +18,11 @@ module.exports = {
 
         const product = productsModel.getProductById(productId)
         if (!product) {
-            throw new Error("Produto não encontrado.")
+            throw new AppError("Produto não encontrado.", 404)
         }
 
         if (product.stock < quantity) {
-            throw new Error("Estoque insuficiente.")
+            throw new Error("Estoque insuficiente.", 404)
         }
 
         product.stock -= quantity
