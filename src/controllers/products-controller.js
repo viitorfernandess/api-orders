@@ -1,5 +1,6 @@
+const AppError = require("../errors/app-error")
 const productsModel = require("../model/products-model")
-const productsData = require("../model/products-model")
+
 
 module.exports = {
     //GET /api/products
@@ -9,11 +10,14 @@ module.exports = {
     },
 
     //GET /api/products/:id
-    show: (req, res) => {
-        const { id } = req.params
-        const product = productsData.getProductById(id)
-        if (!product) return res.status(404).json({ message: 'Produto não encontrado.' })
-        res.json(product)
+    show: (req, res, next) => {
+        try {
+            const { id } = req.params
+            const product = productsModel.getProductById(id)
+            res.json(product)
+        } catch (error) {
+            next(error)
+        }
     },
 
     //POST /api/products
