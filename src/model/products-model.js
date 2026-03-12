@@ -1,4 +1,5 @@
 const uuid = require('uuid').v4
+const AppError  =require('../errors/app-error')
 
 const products = [
     { id: uuid(), productName: 'Teclado', price: 120, stock: 12 }
@@ -11,15 +12,15 @@ module.exports = {
 
     createProduct: (productName, price, stock) => {
         if (!productName || typeof productName !== "string") {
-            throw new Error("Nome do produto inválido.")
+            throw new AppError("Nome do produto inválido.", 400)
         }
 
         if (typeof price !== "number" || price <= 0) {
-            throw new Error("Preço inválido.")
+            throw new AppError("Preço inválido.", 400)
         }
 
         if (typeof stock !== "number" || stock < 0) {
-            throw new Error("Estoque inválido.")
+            throw new AppError("Estoque inválido.", 400)
         }
 
         const newProduct = {
