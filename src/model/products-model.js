@@ -50,7 +50,7 @@ module.exports = {
             throw new AppError("Preço inválido.", 400)
         }
         if (updatedProduct.stock !== undefined && (typeof updatedProduct.stock !== "number" || updatedProduct.stock < 0)) {
-            throw new AppError("Estoque insuficiente.", 404)
+            throw new AppError("Estoque insuficiente.", 400)
         }
         products[productIndex] = {
             ...products[productIndex],
