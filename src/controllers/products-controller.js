@@ -21,15 +21,14 @@ module.exports = {
     },
 
     //POST /api/products
-    save: (req, res) => {
-        const { productName, price, stock } = req.body
-        if (typeof productName !== 'string' ||
-            typeof price !== 'number' ||
-            typeof stock !== 'number') {
-            return res.status(400).json({ message: 'Campos inválidos.' })
+    save: (req, res, next) => {
+        try {
+            const { productName, price, stock } = req.body
+            const newProduct = productsModel.createProduct(productName, price, stock)
+            res.status(201).json(newProduct)
+        } catch (error) {
+            next(error)
         }
-        const newProduct = productsModel.createProduct(productName, price, stock)
-        res.status(201).json(newProduct)
     },
 
     update: (req, res) => {
