@@ -31,17 +31,20 @@ module.exports = {
         }
     },
 
-    update: (req, res) => {
-        const { id } = req.params
-        const { productName, price, stock } = req.body
-        const fieldsToUpdate = {}
+    update: (req, res, next) => {
+        try {
+            const { id } = req.params
+            const { productName, price, stock } = req.body
+            const fieldsToUpdate = {}
 
-        if (productName !== undefined) fieldsToUpdate.productName = productName
-        if (price !== undefined) fieldsToUpdate.price = price
-        if (stock !== undefined) fieldsToUpdate.stock = stock
-
-        const updatedProduct = productsModel.updateProduct(id, fieldsToUpdate)
-        return res.status(200).json(updatedProduct)
+            if (productName !== undefined) fieldsToUpdate.productName = productName
+            if (price !== undefined) fieldsToUpdate.price = price
+            if (stock !== undefined) fieldsToUpdate.stock = stock
+            const updatedProduct = productsModel.updateProduct(id, fieldsToUpdate)
+            return res.status(200).json(updatedProduct)
+        } catch (error) {
+            next(error)
+        }
     },
 
     delete: (req, res) => {
