@@ -47,15 +47,15 @@ module.exports = {
         }
     },
 
-    delete: (req, res) => {
-        const { id } = req.params
+    delete: (req, res, next) => {
 
-        const deletedProduct = productsModel.deleteProduct(id)
+        try {
+            const { id } = req.params
 
-        if (!deletedProduct) {
-            return res.status(404).json({ message: 'produto não encontrado.' })
+            const deletedProduct = productsModel.deleteProduct(id)
+            return res.status(200).json(deletedProduct)
+        } catch (error) {
+            next(error)
         }
-
-        return res.status(200).json(deletedProduct)
     }
 }
