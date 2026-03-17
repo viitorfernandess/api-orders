@@ -32,19 +32,22 @@ module.exports = {
     },
 
     //PUT /api/orders/:id
-    update: (req, res) => {
-        const { id } = req.params
-        const { quantity } = req.body
-        const fieldsToUpdate = {}
+    update: (req, res, next) => {
 
-        if (quantity !== undefined) fieldsToUpdate.quantity = quantity
+        try {
+            const { id } = req.params
+            const { quantity } = req.body
+            const fieldsToUpdate = {}
 
-        const updatedOrder = ordersModel.updateOrder(id, fieldsToUpdate)
+            if (quantity !== undefined) fieldsToUpdate.quantity = quantity
 
-        if (!updatedOrder) {
-            return res.status(404).json({ message: 'Pedido não encontrado' })
+            const updatedOrder = ordersModel.updateOrder(id, fieldsToUpdate)
+            return res.status(200).json(updatedOrder)
+        } catch (error) {
+            next(error)
         }
-        return res.status(200).json(updatedOrder)
-    }
+    },
 
+    
 }
+
