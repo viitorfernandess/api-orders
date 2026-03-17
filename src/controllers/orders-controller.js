@@ -1,5 +1,5 @@
 const ordersModel = require('../model/orders-model')
-
+const AppError = require('../errors/app-error')
 
 
 module.exports = {
@@ -10,11 +10,14 @@ module.exports = {
     },
 
     //GET /api/orders/:id
-    show: (req, res) => {
-        const { id } = req.params
-        const order = ordersModel.getOrderById(id)
-        if (!order) return res.status(404).json({ message: 'Pedido não encontrado' })
-        res.json(order)
+    show: (req, res, next) => {
+        try {
+            const { id } = req.params
+            const order = ordersModel.getOrderById(id)
+            return res.json(order)
+        } catch (error) {
+            next(error)
+        }
     },
 
     //POST /api/orders
