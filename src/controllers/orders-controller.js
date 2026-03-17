@@ -48,6 +48,16 @@ module.exports = {
         }
     },
 
-    
+    //DELETE /api/orders/:id
+    delete: (req, res, next) => {
+        try {
+            const { id } = req.params
+            const deletedOrder = ordersModel.deleteOrder(id)
+            return res.status(200).json(deletedOrder)
+        } catch (error) {
+            next(error)
+        }
+    }
+
 }
 
