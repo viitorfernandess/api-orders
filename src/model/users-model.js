@@ -12,5 +12,10 @@ module.exports = {
             throw new AppError('Usuário não encontrado', 404)
         }
         return user
-    }
+    },
+
+    getUserByEmail: (email) => {
+        users.find(user => user.email === email)
+    },
+    
 }
