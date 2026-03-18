@@ -1,4 +1,4 @@
-
+const uuid = require('uuid').v4
 const AppError = require('../errors/app-error')
 
 const users = []
@@ -17,5 +17,16 @@ module.exports = {
     getUserByEmail: (email) => {
         users.find(user => user.email === email)
     },
+
+    createUser: (email, hashedPassword) => {
+        const newUser = {
+            id: uuid(),
+            email,
+            password: hashedPassword
+        }
+        users.push(newUser)
+        return newUser
+    },
+
     
 }
