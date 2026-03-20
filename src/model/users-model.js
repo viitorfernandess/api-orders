@@ -39,5 +39,14 @@ module.exports = {
         if (email) user.email = email
         if (hashedPassword) user.password = hashedPassword
         return user
+    },
+
+    deleteUser: (id) => {
+        const index = users.findIndex(user => user.id === id)
+        if (index === -1) {
+            throw new AppError('Usuário não encontrado', 404)
+        }
+        users.splice(index, 1)
+        return { message: 'Usuário deletado com sucesso' }
     }
 }
